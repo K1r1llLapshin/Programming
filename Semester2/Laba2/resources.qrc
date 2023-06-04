@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>resources/bush_circle.png</file>
+        <file>resources/bush_square.jpg</file>
+        <file>resources/grass.png</file>
+        <file>resources/water.png</file>
+    </qresource>
+</RCC>
