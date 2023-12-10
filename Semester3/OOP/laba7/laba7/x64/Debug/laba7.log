@@ -1,0 +1,5 @@
+﻿  laba7.cpp
+C:\Users\kiril\OneDrive\Рабочий стол\C++pr\OOP\laba7\laba7\MemoryUserRepository.h(17): warning C4715: MemoryUserRepository::getById: значение возвращается не при всех путях выполнения
+C:\Users\kiril\OneDrive\Рабочий стол\C++pr\OOP\laba7\laba7\MemoryUserRepository.h(25): warning C4715: MemoryUserRepository::getByName: значение возвращается не при всех путях выполнения
+C:\Users\kiril\OneDrive\Рабочий стол\C++pr\OOP\laba7\laba7\MemoryUserRepository.h(33): warning C4715: MemoryUserRepository::getByEmail: значение возвращается не при всех путях выполнения
+  laba7.vcxproj -> C:\Users\kiril\OneDrive\Рабочий стол\C++pr\OOP\laba7\x64\Debug\laba7.exe
