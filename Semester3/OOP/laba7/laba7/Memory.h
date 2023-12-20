@@ -22,7 +22,7 @@ public:
 			mItem.erase(it);
 		}
 	}
-	vector<T*> Get(const string where, const string orderBy) override
+	vector<T*> Get(const string& where, const string& orderBy) override
 	{
 		return mItem;
 	}
