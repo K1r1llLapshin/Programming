@@ -35,22 +35,22 @@ void User::setId(int mId)
     this->mId = mId;
 }
 
-void User::setName(string mName)
+void User::setName(const string& mName)
 {
     this->mName = mName;
 }
 
-void User::setEmail(string mEmail)
+void User::setEmail(const string& mEmail)
 {
     this->mEmail = mEmail;
 }
 
-void User::setPhone(string mPhone)
+void User::setPhone(const string& mPhone)
 {
     this->mPhone = mPhone;
 }
 
-void User::setCity(string mCity)
+void User::setCity(const string& mCity)
 {
     this->mCity = mCity;
 }
