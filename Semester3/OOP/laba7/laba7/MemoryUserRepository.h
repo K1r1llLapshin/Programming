@@ -15,7 +15,7 @@ public:
 				return user;
 		}
 	}
-	User* getByName(string name)
+	User* getByName(const string& name)
 	{
 		for (User* user : mItem)
 		{
@@ -23,7 +23,7 @@ public:
 				return user;
 		}
 	}
-	User* getByEmail(string email)
+	User* getByEmail(const string& email)
 	{
 		for (User* user : mItem)
 		{
@@ -31,7 +31,7 @@ public:
 				return user;
 		}
 	}
-	vector<User*> getByCity(string city)
+	vector<User*> getByCity(const string& city)
 	{
 		vector<User*> res;
 		for (User* user : mItem)
