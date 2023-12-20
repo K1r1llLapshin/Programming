@@ -23,10 +23,10 @@ public:
 	Gender getGender();
 
 	void setId(int mId);
-	void setName(string mName);
-	void setEmail(string mEmail);
-	void setPhone(string mPhone);
-	void setCity(string mCity);
+	void setName(const string& mName);
+	void setEmail(const string& mEmail);
+	void setPhone(const string& mPhone);
+	void setCity(const string& mCity);
 	void setGender(Gender mGender);
 
 	~User() {};
