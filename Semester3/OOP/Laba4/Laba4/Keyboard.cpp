@@ -20,7 +20,7 @@ void Keyboard::pressKey(Key key)
 		}
 
 		else
-			cout << "íåò òàêîé êëàâèøè";
+			cout << "Ã­Ã¥Ã² Ã²Ã ÃªÃ®Ã© ÃªÃ«Ã Ã¢Ã¨Ã¸Ã¨";
 
 	}
 	switch (this_key.getKeyCommand())
@@ -98,7 +98,7 @@ void Keyboard::undo()
 {
 	if (tab == true)
 	{
-		tab == false;
+		tab = false;
 		tab_count = 0;
 	}
 	if (caps == true)
