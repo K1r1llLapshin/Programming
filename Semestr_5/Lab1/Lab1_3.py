@@ -9,6 +9,6 @@ with open("C:/not_found_file.txt", "r") as nf:
 
 for file in files:
     file_name = file.strip() # Удаляем \n в конце 
-    new_file_pass = os.path.join(dir_, file_name) # новый путь к файлу
-    with open (new_file_pass, "w") as f:
+    new_file_path= os.path.join(dir_, file_name) # новый путь к файлу
+    with open (new_file_path, "w") as f:
         f.write(' ')
