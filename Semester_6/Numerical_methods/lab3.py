@@ -71,10 +71,11 @@ def Simpson(a, b, n, I_old):
 metods = [LeftRectangle, RightRectangle, MidRectangle, Trapezoids, Simpson]
 a = 0
 b = 1
-n = 2
+n_n = 2
 I = F(b) - F(a)
 for metod in metods:
+    n = n_n
     I_n, h, n = metod(a, b, n, 0)
     delta = RelativeError(I, I_n)
-    print(f"\t\tМетод {metod.__name__}\nПрибличенное решение: {I_n:.5f}\nВеличина последнего шага: {h:.10f}\nКол-во точек разбиения: {n}\nОтносительная погрешность: {delta} %\n\n")
+    print(f"\t\tМетод {metod.__name__}\nПрибличенное решение: {I_n:.5f}\nВеличина последнего шага: {h:.10f}\nКол-во точек разбиения: {n}\nОтносительная погрешность: {delta:.6f} %\n\n")
 
