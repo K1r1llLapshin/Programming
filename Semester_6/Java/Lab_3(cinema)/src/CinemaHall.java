@@ -22,6 +22,11 @@ public class CinemaHall {
         }
     }
 
+    // Количество мест 
+    public int getCountPlace(){
+        return count_colum * count_row;
+    }
+
     // Конфигурации мест всего ряда
     public void setRowConfigurationArmchairs(int row, String type, int price, boolean booked){
         for (int i = 0; i < count_colum; i++){
@@ -68,7 +73,7 @@ public class CinemaHall {
     }
 
    
-
+    // Изображение зала
     public void DrawCinemaHall(){
         for (int i = 0; i < count_row; i++){
             for (int j = 0; j < count_colum; j++){

@@ -1,51 +1,57 @@
 public class TicketSystem {
+    
     private Cinema[] cinemas;
+    private String[] names_cinemas;
     TicketSystem(){
         this.cinemas = new Cinema[0];
+        this.names_cinemas = new String[0];
     }
 
-    public int FindeCinema (Cinema[]cinemas, String name_cinema){
-        int i = 0; 
-        while(!cinemas[i].getNameCinema().equals(name_cinema))
-            i++;
-        return i;
+    public int getCountCinema(){
+        return cinemas.length;
     }
-
-    // Для админа
+    
+    // Создание кинотеатра
     public void setCinema(String name){
         Cinema new_Cinema = new Cinema(name);
         int new_lenght = cinemas.length + 1;
         Cinema[] time = new Cinema[new_lenght];
+        String[] time_name = new String[new_lenght];
 
-        for (int i = 0; i < new_lenght - 1; i++ )
+        for (int i = 0; i < new_lenght - 1; i++ ){
             time[i] = cinemas[i];
-
+            time_name[i] = names_cinemas[i];
+        }
         time[new_lenght - 1] = new_Cinema;
+        time_name[new_lenght - 1] = name;
         cinemas = time;
+        names_cinemas = time_name;
     }
 
-    
-    public void setCinemaHall(String cinema_name, int count_row, int count_colum){
-        int i = FindeCinema(cinemas, cinema_name);
-        cinemas[i].setCinemaHall(count_row, count_colum);
+    // Проверака существует кинотеатр с таким названием или нет
+    public boolean FindeNameCinema(String name){
+        boolean finde = false;
+        for (int i = 0 ; i < names_cinemas.length; i++){
+            if (names_cinemas[i].equals(name)){
+                finde = true;
+                break;
+            }
+        }
+        return finde;
+    } 
+
+    // Получения кинотеара 
+    public Cinema getCinema (String name_cinema){
+        int i = 0; 
+        while(!cinemas[i].getNameCinema().equals(name_cinema))
+            i++;
+        return cinemas[i];
     }
 
-    public void setSesion(String cinema_name, int id_cinima_hall, String name, int start, int duration){
-        Session session = new Session(name, start, duration);
-        int i = FindeCinema(cinemas, cinema_name);
-        cinemas[i].getCinemaHall(id_cinima_hall).setSesion(session);
+    // Получения зала в кинотеатре
+    public CinemaHall getCinemaHall(int id_cinemaHall, Cinema cinema){
+        return cinema.getCinemaHall(id_cinemaHall);
     }
 
-    public void setConfigurationArmchairs (String cinema_name, int id_cinima_hall, int[] position, boolean booked, int price, String type){
-        int i = FindeCinema(cinemas, cinema_name);
-        cinemas[i].getCinemaHall(id_cinima_hall).setConfigurationArmchairs(position, type, price, booked);
-    }
-
-    public void setRowConfigurationArmchairs (String cinema_name, int id_cinima_hall, int row, boolean booked, int price, String type){
-        int i = FindeCinema(cinemas, cinema_name);
-        cinemas[i].getCinemaHall(id_cinima_hall).setRowConfigurationArmchairs(row, type, price, booked);
-    
-    
-    //Для юзера
 
 }
