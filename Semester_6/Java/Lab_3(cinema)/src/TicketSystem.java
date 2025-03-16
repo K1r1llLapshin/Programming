@@ -48,9 +48,9 @@ public class TicketSystem {
         return cinemas[i];
     }
 
-    // Получения зала в кинотеатре
-    public CinemaHall getCinemaHall(int id_cinemaHall, Cinema cinema){
-        return cinema.getCinemaHall(id_cinemaHall);
+    // Получения кинотеатра по индексу
+    public Cinema getCinemaInd(int id_cinema){
+        return cinemas[id_cinema];
     }
 
 

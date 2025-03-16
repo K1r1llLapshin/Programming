@@ -1,3 +1,5 @@
+import java.time.LocalTime;
+
 import Armchairs.Armchair;
 import Armchairs.DefaultArmchair;
 import Armchairs.MassageChair;
@@ -5,6 +7,7 @@ import Armchairs.MassageChair;
 public class CinemaHall {
     private Armchair[][] hall;
     private Session[] sessions;
+    private String[] typeArmchair = {"DefaultArmchair", "MassageChair"};
     private int count_row;
     private int count_colum;
 
@@ -22,9 +25,25 @@ public class CinemaHall {
         }
     }
 
-    // Количество мест 
+    // Геттеры
     public int getCountPlace(){
         return count_colum * count_row;
+    }
+
+    public int getCountRow(){
+        return count_row;
+    }
+
+    public int getCountColum(){
+        return count_colum;
+    }
+
+    public String[] getTypesArmchairs(){
+        return typeArmchair;
+    }
+    
+    public Session[] getSessions(){
+        return sessions;
     }
 
     // Конфигурации мест всего ряда
@@ -63,7 +82,7 @@ public class CinemaHall {
     }
 
     // Задние сеанса для данного зала
-    public void setSesion(Session session){
+    public void setSession(Session session){
         int new_lenght = sessions.length + 1;
         Session[] time = new Session[new_lenght];
         for (int i = 0; i < new_lenght - 1; i++ )
@@ -72,9 +91,36 @@ public class CinemaHall {
         sessions = time;
     }
 
+    // Проверка на уникальность сеанса
+    public boolean isSessionUnique(Session newSession) {
+        for (Session session : sessions) {
+            if (session.equalSession(newSession)) {
+                return false; 
+            }
+        }
+        return true; 
+    }
+
+    // Проверка на пересечение по времени
+    public boolean isSessionOverlapping(Session newSession) {
+        LocalTime newSessionStart = newSession.getSessionStart();
+        LocalTime newSessionEnd = newSessionStart.plus(newSession.getDuration());
+
+        for (Session session : sessions) {
+            if (session.getDate().equals(newSession.getDate())) {
+                LocalTime existingSessionStart = session.getSessionStart();
+                LocalTime existingSessionEnd = existingSessionStart.plus(session.getDuration());
+
+                if (newSessionStart.isBefore(existingSessionEnd) && newSessionEnd.isAfter(existingSessionStart)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
    
     // Изображение зала
-    public void DrawCinemaHall(){
+    public void Draw(){
         for (int i = 0; i < count_row; i++){
             for (int j = 0; j < count_colum; j++){
                 switch (hall[i][j].GetType()) {

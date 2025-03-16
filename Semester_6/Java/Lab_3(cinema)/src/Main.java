@@ -29,7 +29,7 @@ public class Main {
 
                 if (log_and_pass_Admin.equals(log) && log_and_pass_Admin.equals(pass)){
                     Administration admin = new Administration();
-            
+                    admin.Interface();
                 }
                 else
                     System.err.print("Неверен логин или пароль\n\n");
