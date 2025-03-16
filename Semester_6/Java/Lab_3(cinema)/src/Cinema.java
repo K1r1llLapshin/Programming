@@ -21,6 +21,10 @@ public class Cinema {
         return cinema[id];
     }
 
+    public CinemaHall[] getAllCinemaHalls(){
+        return cinema;
+    }
+
     public void setCinemaHall(int count_row, int count_colum){
         CinemaHall hall = new CinemaHall(count_row, count_colum);
         int new_leght_cinema = cinema.length + 1;

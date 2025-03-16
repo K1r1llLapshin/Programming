@@ -1,18 +1,15 @@
-import java.time.LocalTime;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.Duration;
 
 public class Session {
 
     private String name;
-    private LocalDate date; 
-    private LocalTime sessionStart;
-    private Duration duration; 
+    private LocalDateTime sessionStart; // Дата и время начала сеанса
+    private Duration duration; // Длительность сеанса
 
     // Конструктор
-    public Session(String name, LocalDate date, LocalTime sessionStart, Duration duration) {
+    public Session(String name, LocalDateTime sessionStart, Duration duration) {
         this.name = name;
-        this.date = date;
         this.sessionStart = sessionStart;
         this.duration = duration;
     }
@@ -26,19 +23,11 @@ public class Session {
         return name;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setSessionStart(LocalTime sessionStart) {
+    public void setSessionStart(LocalDateTime sessionStart) {
         this.sessionStart = sessionStart;
     }
 
-    public LocalTime getSessionStart() {
+    public LocalDateTime getSessionStart() {
         return sessionStart;
     }
 
@@ -53,7 +42,6 @@ public class Session {
     // Метод для сравнения двух сеансов
     public boolean equalSession(Session session) {
         return this.name.equals(session.getName()) &&
-               this.date.equals(session.getDate()) &&
                this.sessionStart.equals(session.getSessionStart()) &&
                this.duration.equals(session.getDuration());
     }
@@ -61,8 +49,8 @@ public class Session {
     // Метод для вывода информации о сеансе
     public void Draw() {
         System.out.println("Название: " + name);
-        System.out.println("Дата: " + date);
-        System.out.println("Начало сеанса: " + sessionStart);
+        System.out.println("Дата и время начала: " + sessionStart);
         System.out.println("Длительность: " + duration.toMinutes() + " минут");
     }
+
 }

@@ -1,3 +1,4 @@
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import Armchairs.Armchair;
@@ -30,6 +31,10 @@ public class CinemaHall {
         return count_colum * count_row;
     }
 
+    public Armchair[][] getHall(){
+        return hall;
+    }
+
     public int getCountRow(){
         return count_row;
     }
@@ -44,6 +49,18 @@ public class CinemaHall {
     
     public Session[] getSessions(){
         return sessions;
+    }
+
+    public boolean HallAll(){
+        int count = 0;
+        for(int i = 0; i < count_row; i++)
+            for(int j = 0; j < count_colum; j++)
+                if(hall[i][j].GetBooked())
+                    count++;
+        if(count == getCountPlace())
+            return true;
+        else
+            return false;
     }
 
     // Конфигурации мест всего ряда
@@ -75,11 +92,6 @@ public class CinemaHall {
         }
     }
 
-    // Обновленеи информации конкретного места
-    public void UpdataConfiguarationArmchairs(int[] position, int price, boolean booked){
-        hall[position[0]][position[1]].SetBooked(booked);
-        hall[position[0]][position[1]].SetPrice(price);
-    }
 
     // Задние сеанса для данного зала
     public void setSession(Session session){
@@ -103,32 +115,35 @@ public class CinemaHall {
 
     // Проверка на пересечение по времени
     public boolean isSessionOverlapping(Session newSession) {
-        LocalTime newSessionStart = newSession.getSessionStart();
-        LocalTime newSessionEnd = newSessionStart.plus(newSession.getDuration());
+    LocalDateTime newSessionStart = newSession.getSessionStart();
+    LocalDateTime newSessionEnd = newSessionStart.plus(newSession.getDuration());
 
-        for (Session session : sessions) {
-            if (session.getDate().equals(newSession.getDate())) {
-                LocalTime existingSessionStart = session.getSessionStart();
-                LocalTime existingSessionEnd = existingSessionStart.plus(session.getDuration());
+    for (Session session : sessions) {
+        LocalDateTime existingSessionStart = session.getSessionStart();
+        LocalDateTime existingSessionEnd = existingSessionStart.plus(session.getDuration());
 
-                if (newSessionStart.isBefore(existingSessionEnd) && newSessionEnd.isAfter(existingSessionStart)) {
-                    return true;
-                }
-            }
+        // Проверяем пересечение по времени
+        if (newSessionStart.isBefore(existingSessionEnd) && newSessionEnd.isAfter(existingSessionStart)) {
+            return true; // Сеансы пересекаются
         }
-        return false;
     }
+    return false; // Пересечений нет
+}
    
     // Изображение зала
     public void Draw(){
+        
         for (int i = 0; i < count_row; i++){
             for (int j = 0; j < count_colum; j++){
+                String booked = "X";
+                if(!hall[i][j].GetBooked())
+                    booked = " ";
                 switch (hall[i][j].GetType()) {
                     case "DefaultArmchair":
-                        System.out.print("DA ");
+                        System.out.print("[" + booked +"] ");
                         break;
                     case "MassageChair":
-                        System.out.print("MC ");
+                        System.out.print("{" + booked +"} ");
                         break;
                     default:
                         break;
@@ -136,6 +151,7 @@ public class CinemaHall {
             }
             System.out.println();
         }
+        System.out.println("[ ] - обычное место \t{ } - масажное кресло \t [X] / {X} - занятые места");
     }
 
 }

@@ -1,12 +1,18 @@
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Duration;
 import java.util.Scanner;
 
 public class Administration {
     private Scanner in = new Scanner(System.in);
-    private TicketSystem ticketSystem = new TicketSystem();
+    private TicketSystem ticketSystem;
 
+    Administration(TicketSystem ticketSystem)
+    {
+        this.ticketSystem = ticketSystem;
+    }
+    
     public void Interface() {
         while (true) {
             int countCinema = ticketSystem.getCountCinema();
@@ -112,7 +118,8 @@ public class Administration {
 
         if (num < 1 || num > countCinemaHall) {
             System.out.println("Зал с таким номером не существует! Попробуйте ещё раз.");
-        } else {
+        }
+        else {
             CinemaHall hall = cinema.getCinemaHall(num - 1);
             InterfaceCinemaHall(hall);
         }
@@ -192,7 +199,8 @@ public class Administration {
             int numType = in.nextInt();
             if (numType < 1 || numType > typeArmchair.length) {
                 System.out.println("Неизвестная команда. Попробуйте ещё раз.");
-            } else {
+            } 
+            else {
                 return typeArmchair[numType - 1];
             }
         }
@@ -205,7 +213,7 @@ public class Administration {
 
     private boolean inputBookedStatus() {
         while (true) {
-            System.out.println("Введите свободно место (0 - да, 1 - нет): ");
+            System.out.println("Введите свободно место (1 - да, 0 - нет): ");
             int num = in.nextInt();
             if (num == 0 || num == 1) {
                 return num == 0;
@@ -235,69 +243,61 @@ public class Administration {
     }
 
     private void createSession(CinemaHall cinemaHall) {
-        while (true) {
-            try {
-                System.out.print("Введите название сеанса: ");
-                String name = in.next();
-    
-                LocalDate date = null;
-                while (date == null) {
-                    System.out.print("Введите дату сеанса (гггг-мм-дд): ");
-                    String dateInput = in.next();
-                    try {
-                        date = LocalDate.parse(dateInput);
-                    } 
-                    catch (Exception e) {
-                        System.out.println("Ошибка: некорректный формат даты. Используйте формат гггг-мм-дд.");
-                    }
-                }
-    
-                LocalTime sessionStart = null;
-                while (sessionStart == null) {
-                    System.out.print("Введите время начала сеанса (чч:мм): ");
-                    String timeInput = in.next();
-                    try {
-                        sessionStart = LocalTime.parse(timeInput);
-                    } 
-                    catch (Exception e) {
-                        System.out.println("Ошибка: некорректный формат времени. Используйте формат чч:мм.");
-                    }
-                }
+    while (true) {
+        try {
+            System.out.print("Введите название сеанса: ");
+            String name = in.next();
 
-                int durationMinutes = 0;
-                while (durationMinutes <= 0) {
-                    System.out.print("Введите длительность сеанса в минутах: ");
-                    try {
-                        durationMinutes = in.nextInt();
-                        if (durationMinutes <= 0)
-                            System.out.println("Ошибка: длительность должна быть положительным числом.");
-                        
-                    } 
-                    catch (Exception e) {
-                        System.out.println("Ошибка: введите целое число.");
-                        in.next();
-                    }
+            LocalDateTime sessionStart = null;
+            while (sessionStart == null) {
+                System.out.print("Введите дату (гггг-мм-дд): ");
+                String dateInput = in.next();
+                System.out.print("Введите время (чч:мм): ");
+                String timeInput = in.next();
+
+                String dateTimeInput = dateInput + "T" + timeInput;
+                try {
+                    sessionStart = LocalDateTime.parse(dateTimeInput);
+                } catch (Exception e) {
+                    System.out.println("Ошибка: некорректный формат даты и времени. Используйте формат гггг-мм-ддTчч:мм.");
                 }
-                Duration duration = Duration.ofMinutes(durationMinutes);
-    
-            
-                Session newSession = new Session(name, date, sessionStart, duration);
-    
-                if (!cinemaHall.isSessionUnique(newSession)) {
-                    System.out.println("Ошибка: сеанс с таким названием, датой и временем уже существует.");
-                } else if (cinemaHall.isSessionOverlapping(newSession)) {
-                    System.out.println("Ошибка: сеанс пересекается по времени с другим сеансом.");
-                } else {
-                    cinemaHall.setSession(newSession);
-                    System.out.println("Сеанс успешно создан!");
-                    break; 
-                }
-            } 
-            catch (Exception e) {
-                System.out.println("Произошла ошибка: " + e.getMessage());
             }
+
+            int durationMinutes = 0;
+            while (durationMinutes <= 0) {
+                System.out.print("Введите длительность сеанса в минутах: ");
+                try {
+                    durationMinutes = in.nextInt();
+                    if (durationMinutes <= 0)
+                        System.out.println("Ошибка: длительность должна быть положительным числом.");
+                } catch (Exception e) {
+                    System.out.println("Ошибка: введите целое число.");
+                    in.next(); 
+                }
+            }
+            Duration duration = Duration.ofMinutes(durationMinutes);
+
+            
+            Session newSession = new Session(name, sessionStart, duration);
+
+            
+            if (!cinemaHall.isSessionUnique(newSession))
+                System.out.println("Ошибка: сеанс с таким названием, датой и временем уже существует.");
+            
+            else if (cinemaHall.isSessionOverlapping(newSession))
+                System.out.println("Ошибка: сеанс пересекается по времени с другим сеансом.");
+            
+            else {
+                cinemaHall.setSession(newSession);
+                ticketSystem.setFilms(newSession);
+                break; 
+            }
+        } 
+        catch (Exception e) {
+            System.out.println("Произошла ошибка: " + e.getMessage());
         }
     }
+}
 
     private void viewSessions(CinemaHall cinemaHall) {
         Session[] sessions = cinemaHall.getSessions();
