@@ -44,4 +44,11 @@ public abstract class Armchair {
     public int GetPrice(){
         return price;
     }
+
+    public void Draw(){
+        System.out.println("Тип: " + type);
+        System.out.println("Ряд: " + Integer.toString(position[0]+1));
+        System.out.println("Место: " + Integer.toString(position[1]+1));
+        System.out.println("Стоимость: " + Integer.toString(price));
+    }
 }

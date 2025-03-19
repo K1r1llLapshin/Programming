@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws Exception {
+        TicketSystem ticketSystem = new TicketSystem();
         Scanner in = new Scanner(System.in);
         String log_and_pass_User = "User34";
         String log_and_pass_Admin = "Admin34";
@@ -16,7 +17,8 @@ public class Main {
                 String pass = in.next();
 
                 if (log_and_pass_User.equals(log) && log_and_pass_User.equals(pass)){
-                    
+                    User user = new User(ticketSystem);
+                    user.Interface();
                 }
                 else
                     System.err.print("Неверен логин или пароль\n\n");
@@ -28,8 +30,8 @@ public class Main {
                 String pass = in.next();
 
                 if (log_and_pass_Admin.equals(log) && log_and_pass_Admin.equals(pass)){
-                    Administration admin = new Administration();
-            
+                    Administration admin = new Administration(ticketSystem);
+                    admin.Interface();
                 }
                 else
                     System.err.print("Неверен логин или пароль\n\n");
@@ -37,9 +39,6 @@ public class Main {
             else
                 break;
         }
-        
-       
     }
 
-    
 }

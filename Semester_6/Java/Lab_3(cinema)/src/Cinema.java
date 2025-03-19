@@ -1,18 +1,28 @@
 public class Cinema {
     private CinemaHall[] cinema;
     private String name;
-
+    
+    // Конструктор
     Cinema(String name){
         this.name = name;
         cinema = new CinemaHall[0];
     }
 
+    // Геттеры и сетер
     public int getCountCinemaHall(){
         return cinema.length;
     }
 
     public String getNameCinema(){
         return name;
+    }
+
+    public CinemaHall getCinemaHall(int id){
+        return cinema[id];
+    }
+
+    public CinemaHall[] getAllCinemaHalls(){
+        return cinema;
     }
 
     public void setCinemaHall(int count_row, int count_colum){
@@ -26,7 +36,5 @@ public class Cinema {
         cinema = time;
     }
 
-    public CinemaHall getCinemaHall(int id){
-        return cinema[id];
-    }
+  
 }
