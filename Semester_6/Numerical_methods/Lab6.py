@@ -164,7 +164,7 @@ def scheme4_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a):
     
     return U, x, t
 
-###def scheme_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a):
+def scheme_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a):
     x_steps = int((x_end - x_start) / h) + 1
     t_steps = int((t_end - t_start) / small_tau) + 1
     
@@ -177,15 +177,17 @@ def scheme4_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a):
     t = np.arange(t_start, t_end + small_tau, small_tau)  
     
     for i in range(x_steps):
-            f_arr[i] = f(x[i] + h/2)
-            U[0][i] = Ux0(x[i])  
+        if i != 0:
+            f_arr[i] = f(x[i-1] + h/2)
+        
+        U[0][i] = Ux0(x[i])  
             
     if a < 0:  
         for i in range(t_steps):
             U[i][x_steps - 1] = U1t(t[i])
         
         for i in range(t_steps - 1):  
-            for j in range(x_steps - 1, -1, -1):  
+            for j in range(x_steps - 1, 0, -1):  
                 U[i+1][j-1] = ((1 + my_lambda) * (U[i+1][j] - U[i][j-1]) - (1 - my_lambda) * U[i][j] - 2 * small_tau * f_arr[j]) / (my_lambda - 1)
     else:
         for i in range(t_steps):
@@ -225,10 +227,14 @@ U3, x3, t3 = scheme3_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a1)
 U4, x4, t4 = scheme4_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a2)
 U5, x5, t5 = scheme1_HalfPlane(x_start, x_end, h, t_end, small_tau, a1)
 U6, x6, t6 = scheme2_HalfPlane(x_start, x_end, h, t_end, small_tau, a2)
+U7, x7, t7 = scheme_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a1)
+U8, x8, t8 = scheme_Rectangle(x_start, x_end, h, t_start, t_end, small_tau, a2)
 
-drawGraph(x1, t1, U1, "правый нижний угол")
+'''drawGraph(x1, t1, U1, "правый нижний угол")
 drawGraph(x2, t2, U2, "левый нижний угол")
 drawGraph(x3, t3, U3, "правый верхний угол")
 drawGraph(x4, t4, U4, "левый верхний угол")
 drawGraph(x5, t5, U5,"правый нижний угол полуплоскость")
-drawGraph(x6, t6, U6,"левый нижний угол полуплоскость")
+drawGraph(x6, t6, U6,"левый нижний угол полуплоскость")'''
+drawGraph(x7, t7, U7,"левый верхний угол. Прямоугольник")
+drawGraph(x8, t8, U8,"правый верхний угол. Прямоугольник")
