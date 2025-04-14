@@ -41,26 +41,24 @@ def schemeRotateH(x_limits, h, t_limits, little_tau):
     x = np.arange(x_limits[0], x_limits[1] + h, h)
     t = np.arange(t_limits[0], t_limits[1] + little_tau, little_tau)
 
-    U[:, 0] = 1 
-    U[:, -1] = 0 
-    
     U[0, :] = U0x(x)  
+    U[1, :] = U[0, :] + little_tau
     
-    if t_steps > 1:
-        U[1, 1:-1] = U[0, 1:-1] + little_tau
-
+    U[:, 0] = 1
+    U[:, -1] = 0
     
     for j in range(1, t_steps - 1):
         S = np.zeros(x_steps)  
         T = np.zeros(x_steps)  
-        
+        S[0] = 0 
+        T[0] = 1
         for i in range(1, x_steps - 1):
             denominator = 1 + 2*lambda_ - lambda_*S[i-1]
             S[i] = lambda_ / denominator
             T[i] = (lambda_ * T[i-1] - (1 + 2*lambda_) * U[j-1, i] + lambda_ * (U[j-1, i+1] + U[j-1, i-1]) + 2*U[j, i]) / denominator
-          
+         
         for i in range(x_steps - 2, 0, -1):
-            U[j+1, i] = S[i] * U[j+1, i+1] + T[i]  
+            U[j+1, i] = S[i] * U[j+1, i+1] + T[i]
     
     return x, t, U  
     
@@ -75,28 +73,27 @@ def schemeT(x_limits, h, t_limits, little_tau):
     
     x = np.linspace(x_limits[0], x_limits[1], x_steps)
     t = np.linspace(t_limits[0], t_limits[1], t_steps)
-    
-    U[:, 0] = 1 
-    U[:, -1] = 0 
-    
+     
     U[0, :] = U0x(x)  
+    U[1, :] = U[0, :] + little_tau  
     
-    if t_steps > 1:
-        U[1, 1:-1] = U[0, 1:-1] + little_tau  
-    
+    U[:, -1] = 0         
+    U[:, 0] = 1 
     
     for j in range(1, t_steps - 1):
         S = np.zeros(x_steps)
         T = np.zeros(x_steps)
-
+        S[0] = 0 
+        T[0] = 1
+        
         for i in range(1, x_steps - 1):
             denominator = 1 + 2*lambda_ - lambda_*S[i-1]
             S[i] = lambda_ / denominator
-            T[i] = (2*U[j, i] - U[j-1, i] + lambda_*T[i-1]) / denominator
-
+            T[i] = (2*U[j, i] - U[j-1, i] + lambda_*T[i-1]) / denominator    
+        U[j+1, -1] = 0   
         for i in range(x_steps - 2, 0, -1):
             U[j+1, i] = S[i] * U[j+1, i+1] + T[i]
-    
+        
     return x, t, U
 
 # функция отриосвки
@@ -113,8 +110,9 @@ def drawGraph(x, t, U, name):
 
 x_limits = [0, 1]
 t_limits = [0, 10]
-little_tau = 0.05
-h = 0.05
+little_tau = 0.01
+h = 0.01
+
 
 x1, t1, U1 = schemeCross(x_limits, h, t_limits, little_tau)
 x2, t2, U2 = schemeRotateH(x_limits, h, t_limits, little_tau)
@@ -122,4 +120,3 @@ x3, t3, U3 = schemeT(x_limits, h, t_limits, little_tau)
 drawGraph(x1, t1, U1, "Крест")
 drawGraph(x2, t2, U2, "Перевернутый H")
 drawGraph(x3, t3, U3, "T")
-    
