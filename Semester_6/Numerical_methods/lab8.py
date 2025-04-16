@@ -38,8 +38,8 @@ def schemeRotateH(x_limits, h, t_limits, little_tau):
     U = np.zeros((t_steps, x_steps))
     lambda_ = little_tau**2 / (2 * h**2) 
     
-    x = np.arange(x_limits[0], x_limits[1] + h, h)
-    t = np.arange(t_limits[0], t_limits[1] + little_tau, little_tau)
+    x = np.linspace(x_limits[0], x_limits[1], x_steps)
+    t = np.linspace(t_limits[0], t_limits[1], t_steps)
 
     U[0, :] = U0x(x)  
     U[1, :] = U[0, :] + little_tau
