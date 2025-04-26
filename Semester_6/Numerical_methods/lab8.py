@@ -9,7 +9,7 @@ def schemeCross(x_limits, h, t_limits, little_tau):
     x_steps = int((x_limits[1] - x_limits[0]) / h) + 1
     t_steps = int((t_limits[1] - t_limits[0]) / little_tau) + 1
     
-    U =np.zeros((t_steps, x_steps))
+    U = np.zeros((t_steps, x_steps))
     lambda_ = little_tau**2 / h**2
     
     x = np.arange(x_limits[0], x_limits[1] + h, h)
