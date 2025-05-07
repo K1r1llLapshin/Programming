@@ -8,7 +8,7 @@ def Uy(y, t):
     return t + y
 
 def f(x, y):
-    return 6*x + y
+    return 2*x-y
 
 def simpleIterationMethod(x_limit, y_limit, sgrid_size, epsilon):
     h =  (x_limit[1] - x_limit[0]) / sgrid_size[0]
