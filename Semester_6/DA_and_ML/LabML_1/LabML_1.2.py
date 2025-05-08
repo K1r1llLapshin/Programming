@@ -98,22 +98,23 @@ print(f"Scikit-Learn: {r2_Scikit:.4f}")
 
 # ================================================================= #
 
-
+predictionsScikit_graph = modelScikit.predict(X.reshape(-1, 1))
+predictionsMyModel_graph = myModel.predict(X)
 
 # отображение графиков
 plt.figure(figsize=(12, 6))
 
 plt.subplot(1, 2, 1)
-plt.scatter(X_test, Y_test, color='black', label='Фактические данные')
-plt.plot(X_test, predictionsScikit, color='blue', linewidth=3, label='Scikit-Learn')
+plt.scatter(X, Y, color='black', label='Фактические данные')
+plt.plot(X, predictionsScikit_graph, color='blue', linewidth=3, label='Scikit-Learn')
 plt.xlabel('bmi')
 plt.ylabel('Target')
 plt.title('Линейная регрессия (Scikit-Learn)')
 plt.legend()
 
 plt.subplot(1, 2, 2)
-plt.scatter(X_test, Y_test, color='black', label='Фактические данные')
-plt.plot(X_test, predictionsMyModel, color='red', linewidth=3, label='Собственная модель')
+plt.scatter(X, Y, color='black', label='Фактические данные')
+plt.plot(X, predictionsMyModel_graph, color='red', linewidth=3, label='Собственная модель')
 plt.xlabel('bmi')
 plt.ylabel('Target')
 plt.title('Линейная регрессия (Собственная реализация)')
