@@ -23,15 +23,10 @@ import matplotlib.pyplot as plt
 	LSTAT%  - более низкий статус населения
 	MEDV - Средняя стоимость частных домов в 1000 долларов
 '''
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.linear_model import LinearRegression
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_absolute_error, mean_absolute_percentage_error, r2_score
 
 nameColumn = ['CRIME', 'HD', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RH', 'TAX', 'PTRATIO', 'BL', 'LSTAT%', 'MEDV']
 
-dataFrame = pd.read_csv(r"LabML_2\housing.csv", names=nameColumn, sep='\s+', engine='python')
+dataFrame = pd.read_csv(r"LabML_2\\housing.csv", names=nameColumn, sep='\s+', engine='python')
 
 
 # ================================================== Зависимость от количества данных ========================================================== #
