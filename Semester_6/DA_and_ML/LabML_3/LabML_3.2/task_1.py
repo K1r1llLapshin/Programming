@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 # =========================== Задание №1 ============================ #
 
-dataFrame = pd.read_csv(r'.\\LabML_3\\LabML_3.2\\Titanic.csv') # Загрузка данных из файла в датафрейм
+dataFrame = pd.read_csv(r'.\\LabML_3\\Titanic.csv') # Загрузка данных из файла в датафрейм
 
 dataFrameNew = dataFrame.dropna() # Удаление пустых значений
 dataFrameNew = dataFrameNew.drop(['Name','Cabin', 'Ticket'], axis=1) # Удаление столбцов не содержащих числовые значения
@@ -38,5 +38,10 @@ score = model1.score(X_test1, y_test1)
 print(f'Точность модели без признака Embarked: {score*100}')
 
 ''' 
+Вывод программы:
+    Процент потерянных данных: 84.5959595959596 %
+    Точность модели: 70.9090909090909
+    Точность модели без признака Embarked: 85.45454545454545
+
 Вывод: точности модели с признаком Embarked и без него примерно одинаковые. Из этого следует, что данный признак не влияет на результаты модели.
 '''

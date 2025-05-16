@@ -7,7 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 # =========================== Мдель из задачи 3.2 ============================ #
 
-dataFrame = pd.read_csv(r'.\\LabML_3\\LabML_3.2\\Titanic.csv') 
+dataFrame = pd.read_csv(r'.\\LabML_3\\Titanic.csv') 
 
 dataFrameNew = dataFrame.dropna() 
 dataFrameNew = dataFrameNew.drop(['Name','Cabin', 'Ticket'], axis=1) 
@@ -30,8 +30,6 @@ model = LogisticRegression(random_state=0, max_iter=1000)
 model.fit(X_train, y_train)
 score = model.score(X_test, y_test)
 print(f'Линениная регрессия\nТочность модели: {score*100}')
-
-# =========================================================================== #
 
 # =================== Метрики для модели из задачаи 3.2 ===================== #
 
@@ -63,6 +61,19 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('Линейная модель')
 plt.show()
+
+
+'''
+Вывод программы:
+    Процент потерянных данных: 84.5959595959596 %
+
+    Линениная регрессия
+    Точность модели: 74.54545454545455
+    Метрика Recall: 0.82
+    Метрика Precision: 0.82
+    Метрика F1: 0.82
+
+'''
 
 # =========================== модели опорных векторов ====================== #
 from sklearn.svm import SVC
@@ -103,6 +114,16 @@ plt.ylabel('True Positive Rate')
 plt.title('Модель опорных векторов')
 plt.show()
 
+'''
+Вывод программы:
+    Модель опорных векторов
+    Точность модели опорных векторов: 0.7636363636363637
+    Метрика Recall: 0.79
+    Метрика Precision: 0.86
+    Метрика F1: 0.82
+
+'''
+
 # ============================ Модель ближайших соседей ======================== #
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -142,6 +163,17 @@ plt.xlabel('False Positive Rate')
 plt.ylabel('True Positive Rate')
 plt.title('Модель ближайших соседей')
 plt.show()
+
+'''
+Вывод программы:
+    Модель ближайших соседей
+    Точность модели ближайших соседей: 0.6363636363636364
+    Метрика Recall: 0.84
+    Метрика Precision: 0.70
+    Метрика F1: 0.76
+
+'''
+
 
 # ============================ Вывод ======================== #
 

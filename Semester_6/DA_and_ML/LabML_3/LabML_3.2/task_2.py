@@ -26,6 +26,12 @@ y_pred = model.predict(X_test)
 print(f'Предсказания модели: {y_pred}')
 print(f'Точность модели: {model.score(X_test, y_test):.2f}')
 
+'''
+Вывод программы:
+    Предсказания модели: [1 0 2 1 1 0 1 2 1 1 2 0 0 0 0 1 2 1 1 2 0 2 0 2 2 2 2 2 0 0 0 0 1 0 0 2 1 0 0 0 2 1 1 0 0]
+    Точность модели: 1.00
+'''
+
 # Визуализация
 plt.figure(figsize=(10, 6))
 scatter = plt.scatter(X_test[:, 0], X_test[:, 1], c=y_pred, cmap=plt.cm.Set1, edgecolor='k', s=50)
